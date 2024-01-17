@@ -1,3 +1,5 @@
+from v1.routes import buy_route
+
 '''
 Q: What are the inputs to this function?
 A: Who is buying, what is he buying, how much is buying, at what price is he buying, when did he buy this?
@@ -8,6 +10,7 @@ A: Who is buying, what is he buying, how much is buying, at what price is he buy
     5. Time of Transaction
     6. user_id (access_token, who is buying)
 '''
+
 @buy_route.route("/v1/api/buy", methods=["POST"])
 @login_required
 def buy_api(access_token):
