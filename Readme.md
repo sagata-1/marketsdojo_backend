@@ -9,7 +9,7 @@ If p-->q evaluates to true, your software is correct and is doing what is expect
 regardless of the truth value of q. If I make the promise that if it is sunny tomorrow I will take you to the beach, then if it is not sunny tomorrow the promise is true
 regardless if we go to the beach or not. The promise is only broken if it is sunny tomorrow and we don't go to the beach. Then p is true, q is false and p-->q evaluates to false. So you're software is incorrect if the precondition of the method is satisfied but the postcondition is not. Therefore, we aim to achieve p=true and q=true.
 
-Satisfying the precondition is the responsibility of the caller of the function, satisfying the pre-condition is the responsibility of the implementer.
+Satisfying the precondition is the responsibility of the caller of the function, satisfying the post-condition is the responsibility of the implementer.
 
 This codebase employs the Design-by-Contract paradigm of specifying method contracts using clauses that were used in OSU CSE Components before PyContracts was developed by MIT.Any developer working on this codebase must install PyContracts and first write the contract for each function using the @contract decorator before implementing the function. Then implement the contract to ensure it's post-condition is satisfied by your implementation.
 During development, Use assert statement to explicitly check the preconditions and postcondtions are satisfied. Asserts are turned off in production so you need error handling functions.
