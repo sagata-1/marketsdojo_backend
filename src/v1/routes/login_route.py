@@ -3,7 +3,7 @@ from flask import jsonify, request, make_response
 from services.login_service import login_user
 
 
-@login_route_1.route("/v1/api/login", methods=['POST'])
+@login_route_1.route("/v1/users/login", methods=['POST'])
 def login():
     """
     Flask route for user login.

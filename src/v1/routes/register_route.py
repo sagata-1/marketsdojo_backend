@@ -2,7 +2,7 @@ from . import register_route_1
 from flask import jsonify, request, make_response
 from services.register_service import register_user
 
-@register_route_1.route("/v1/api/register", methods=['POST'])
+@register_route_1.route("/v1/users", methods=['POST'])
 def register():
     """
     API endpoint for user registration.

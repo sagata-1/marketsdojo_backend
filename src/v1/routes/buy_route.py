@@ -11,7 +11,7 @@ A: Who is buying, what is he buying, how much is buying, at what price is he buy
     6. user_id (access_token, who is buying)
 '''
 
-@buy_route_1.route("/v1/api/buy", methods=["POST"])
+@buy_route_1.route("/v1/users/history", methods=["POST"])
 # @login_required
 def buy_api(access_token):
     return buy_service(access_token,request.json)

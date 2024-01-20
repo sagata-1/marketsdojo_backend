@@ -13,17 +13,10 @@ def test_login():
 def test_portfolio():
     with test_portfolio_service.app.app_context():
         assert(portfolio_service("Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6IkFybWFuIEphc3VqYSIsImlhdCI6MTcwNDE5MDI5MiwianRpIjoiMWI4N2Q1OTQtNWVkMy00ZDk3LWEzNTAtMGJlMzhlOTU4NzA1IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MjYsIm5iZiI6MTcwNDE5MDI5MiwiY3NyZiI6IjBlNTBjMTZjLTNjMWItNDY0Ny1hYWFlLTgwMDY3OTdiYWU2YSIsImV4cCI6MTcwNDE5MTE5Mn0.WC6XDZs3tVyEHT8y3WN0SVxEUVkAoBdKKCmfzF6OVlk") == ({
-                "cash": 10000.0,
+                "available_cash": 10000.0,
                 "portfolio": [],
-                "starting_amt": 10000,
+                "starting_amt": 10000.0,
                 "total_invested_amount": 0,
-                "types": [
-                    "Stock (Equity)",
-                    "Forex",
-                    "Index",
-                    "ETF",
-                    "Commodity"
-                ],
                 "username": "Arman Jasuja"
                 }, 200))
         

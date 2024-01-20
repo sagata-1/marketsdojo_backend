@@ -12,7 +12,6 @@ def get_portfolio(user_id):
     portfolio_entries = PortfolioModel.query.filter_by(user_id=user_id).order_by(PortfolioModel.symbol).all()
     serialized_portfolio = [
         {
-            "user_id": entry.user_id,
             "symbol": entry.symbol,
             "name": entry.name,
             "quantity": entry.quantity,

@@ -24,16 +24,13 @@ def portfolio_service(access_token):
     portfolio_entries = get_portfolio(user_id)
     
     total_invested_amount = get_total_invested_amt(portfolio_entries)
-
-    types = ["Stock (Equity)", "Forex", "Index", "ETF", "Commodity"] # CFD Support for later
     
     portfolio_data = {
         "portfolio": portfolio_entries,
-        "cash": cash,
+        "available_cash": cash,
         "total_invested_amount": total_invested_amount,
-        "starting_amt": 10000,
-        "username": username,
-        "types": types
+        "starting_amt": 10000.0,
+        "username": username
     }
     response = jsonify(portfolio_data)
 

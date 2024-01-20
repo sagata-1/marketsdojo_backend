@@ -4,7 +4,7 @@ from services.portfolio_service import portfolio_service
 from utils.login_required import login_required
 
 
-@portfolio_route_1.route("/v1/api/portfolio", methods=['POST'])
+@portfolio_route_1.route("/v1/users/portfolio", methods=['POST'])
 @login_required
 def portfolio(access_token):
     """
