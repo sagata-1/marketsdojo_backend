@@ -1,5 +1,4 @@
 # portfolio_service.py
-from models.user_model import User
 from utils.get_user_from_token import get_user_from_token
 from utils.get_portfolio import get_portfolio
 from utils.get_total_invested_amt import get_total_invested_amt
