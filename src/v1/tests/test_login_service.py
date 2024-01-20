@@ -28,9 +28,7 @@ class User(db.Model):
     bought = db.Column(db.BigInteger, nullable=False, default=0)
     sold = db.Column(db.BigInteger, nullable=False, default=0)
     timestamp = db.Column(db.DateTime(timezone=True)) 
-    
-
-    
+        
 def login_user(email, password):
     """
     Authenticate a user.
@@ -43,23 +41,29 @@ def login_user(email, password):
     response: A dictionary containing user info and token if authentication is successful, 
           or an error message if not.
     """
+    if not email:
+        response = {"error": {"code": 403, "message": "email not provided"}}
 
-    # Query user by email
-    user = User.query.filter_by(email=email).first()
-
-    # Check user exists and password is correct
-    if not user or not check_password_hash(user.hash, password):
-        response = {"error": {"code": 403, "message": "Incorrect email and/or password"}}
-
-    # Query access token
+    elif not password:
+        response = {"error": {"code": 403, "message": "Did not enter a password"}}
+    
     else:
-        access_token = TokenModel.query.filter_by(id=user.id).first()
-        response = {
-            "username": user.username,
-            "user_id": user.id,
-            "email": email,
-            "access_token": access_token.tokens
-        }
+        # Query user by email
+        user = User.query.filter_by(email=email).first()
+
+        # Check user exists and password is correct
+        if not user or not check_password_hash(user.hash, password):
+            response = {"error": {"code": 403, "message": "Incorrect email and/or password"}}
+
+        # Query access token
+        else:
+            access_token = TokenModel.query.filter_by(id=user.id).first()
+            response = {
+                "username": user.username,
+                "user_id": user.id,
+                "email": email,
+                "access_token": access_token.tokens
+            }
     return response
 
 def login_api(data):
@@ -75,21 +79,12 @@ def login_api(data):
     
     email = data.get("email")
     password = data.get("password")
-    if not email:
+    result = login_user(email, password)
+    if "error" in result:
         code = 403
-        response = {"error": {"code": 403, "message": "email not provided"}}
-
-    elif not password:
-        code = 403
-        response = {"error": {"code": 403, "message": "Did not enter a password"}}
-    
+        response = result
     else:
-        result = login_user(email, password)
-        if "error" in result:
-            code = 403
-            response = result
-        else:
-            code = 200
-            response = result
+        code = 200
+        response = result
 
     return (response, code)

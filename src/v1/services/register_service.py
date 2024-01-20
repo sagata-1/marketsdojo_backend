@@ -30,7 +30,11 @@ def register_user(username: str, email: str, password: str) -> (dict, int):
     """
 
     code = 200
-    if User.query.filter((User.username == username) | (User.email == email)).first():
+    if not username or not email or not password:
+        code = 400
+        response = {"error": "Missing required fields"}
+        
+    elif User.query.filter((User.username == username) | (User.email == email)).first():
         code = 400
         response = jsonify({"error": "Username or email already exists"})
 
@@ -58,7 +62,7 @@ def register_user(username: str, email: str, password: str) -> (dict, int):
             response = jsonify({"error": "Database error occurred"})
             
     if code == 200:
-        response = {"username": username, "user_id": new_user.id, "email": email, "access_token": access_token}
+        response = jsonify({"username": username, "user_id": new_user.id, "email": email, "access_token": access_token})
             
 
     return make_response(response, code)

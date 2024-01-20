@@ -2,7 +2,7 @@ from . import register_route_1
 from flask import jsonify, request, make_response
 from services.register_service import register_user
 
-@register_route_1.route("/v1/api/register", methods=['POST'])
+@register_route_1.route("/v1/users", methods=['POST'])
 def register():
     """
     API endpoint for user registration.
@@ -25,9 +25,5 @@ def register():
     username = data.get("username")
     email = data.get("email")
     password = data.get("password")
-
-    if not username or not email or not password:
-        response = make_response(jsonify({"error": "Missing required fields"}), 400)
-    else:
-        response = register_user(username, email, password)
+    response = register_user(username, email, password)
     return response
