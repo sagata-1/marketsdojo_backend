@@ -18,21 +18,12 @@ def login():
     data = request.json
     email = data.get("email")
     password = data.get("password")
-    if not email:
+    result = login_user(email, password)
+    if "error" in result:
         code = 403
-        response = jsonify({"error": {"code": 403, "message": "email not provided"}})
-
-    elif not password:
-        code = 403
-        response = jsonify({"error": {"code": 403, "message": "Did not enter a password"}})
-    
+        response = jsonify(result) 
     else:
-        result = login_user(email, password)
-        if "error" in result:
-            code = 403
-            response = jsonify(result) 
-        else:
-            code = 200
-            response = jsonify(result) 
+        code = 200
+        response = jsonify(result) 
 
     return make_response(response, code)

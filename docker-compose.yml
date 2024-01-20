@@ -4,6 +4,6 @@ services:
   web:
     build: .
     volumes:
-      - .:/usr/src/app
+      - .:/usr/app
     ports:
       - "5000:5000"
