@@ -42,10 +42,10 @@ def login_user(email, password):
           or an error message if not.
     """
     if not email:
-        response = {"error": {"code": 403, "message": "email not provided"}}
+        response = {"code": 403, "message": "email not provided", "data": {}}
 
     elif not password:
-        response = {"error": {"code": 403, "message": "Did not enter a password"}}
+        response = {"code": 403, "message": "Did not enter a password", "data": {}}
     
     else:
         # Query user by email
@@ -53,17 +53,17 @@ def login_user(email, password):
 
         # Check user exists and password is correct
         if not user or not check_password_hash(user.hash, password):
-            response = {"error": {"code": 403, "message": "Incorrect email and/or password"}}
+            response = {"code": 403, "message": "Incorrect email and/or password", "data": {}}
 
         # Query access token
         else:
             access_token = TokenModel.query.filter_by(id=user.id).first()
-            response = {
+            response = {"code": 200, "message": "Success", "data": {
                 "username": user.username,
                 "user_id": user.id,
                 "email": email,
                 "access_token": access_token.tokens
-            }
+            }}
     return response
 
 def login_api(data):
@@ -79,12 +79,6 @@ def login_api(data):
     
     email = data.get("email")
     password = data.get("password")
-    result = login_user(email, password)
-    if "error" in result:
-        code = 403
-        response = result
-    else:
-        code = 200
-        response = result
+    response = login_user(email, password)
 
-    return (response, code)
+    return (response, response["code"])

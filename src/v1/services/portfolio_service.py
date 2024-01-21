@@ -24,13 +24,13 @@ def portfolio_service(access_token):
     
     total_invested_amount = get_total_invested_amt(portfolio_entries)
     
-    portfolio_data = {
+    portfolio_data = {"code": 200, "message": "Success", "data": {
         "portfolio": portfolio_entries,
         "available_cash": cash,
         "total_invested_amount": total_invested_amount,
         "starting_amt": 10000.0,
         "username": username
-    }
+    }}
     response = jsonify(portfolio_data)
 
     return make_response(response, code)

@@ -10,7 +10,7 @@ def login_required(f):
         code = 200
         if auth_header is None:
             code = 403
-            response = make_response(jsonify({"error": {"code": 403, "message": "Missing access token"}}), 403)
+            response = make_response(jsonify({"code": 403, "message": "Missing access token", "data": {}}), 403)
         else:
             # Split the header to extract the token part
             parts = auth_header.split()
@@ -19,10 +19,10 @@ def login_required(f):
                 id = TokenModel.query.filter_by(tokens=access_token).first()
                 if not id:
                     code = 403
-                    response = make_response(jsonify({"error": {"code": 403, "message": "Invalid access token"}}), 403)
+                    response = make_response(jsonify( {"code": 403, "message": "Invalid access token", "data": {}}), 403)
             else:
                 code = 403
-                response = make_response(jsonify({"error": {"code": 403, "message": "Invalid Authorization header format"}}), 403)
+                response = make_response(jsonify({"code": 403, "message": "Invalid Authorization header format", "data": {}}), 403)
 
         if code != 403:
             response = f(*args, **kwargs, access_token=access_token)
