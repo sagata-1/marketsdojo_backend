@@ -33,5 +33,5 @@ def update_history_table_after_buy(user_id, symbol, transaction_price, quantity,
 
 '''
 
-def update_history_table_after_buy(user_id, data):
-    return False
+def update_history_table_after_transaction(user_id, data):
+    return {"code": 302, "message": "to be implemented", "data": {}}
