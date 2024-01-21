@@ -97,7 +97,7 @@ def portfolio_service(auth_header):
     code = 200
     if auth_header is None:
         code = 403
-        response = {"error": {"code": 403, "message": "Missing access token"}}
+        response = {"code": 403, "message": "Missing access token", "data": {}}
     else:
         # Split the header to extract the token part
         parts = auth_header.split()
@@ -106,10 +106,10 @@ def portfolio_service(auth_header):
             id = TokenModel.query.filter_by(tokens=access_token).first()
             if not id:
                 code = 403
-                response = {"error": {"code": 403, "message": "Invalid access token"}}
+                response = {"code": 403, "message": "Invalid access token", "data": {}}
         else:
             code = 403
-            response = {"error": {"code": 403, "message": "Invalid Authorization header format"}}
+            response = {"code": 403, "message": "Invalid Authorization header format", "data": {}}
             
     if code != 403:
         user = get_user_from_token(access_token)
@@ -120,13 +120,13 @@ def portfolio_service(auth_header):
         
         total_invested_amount = get_total_invested_amt(portfolio_entries)
         
-        portfolio_data = {
-            "portfolio": portfolio_entries,
-            "available_cash": cash,
-            "total_invested_amount": total_invested_amount,
-            "starting_amt": 10000.0,
-            "username": username
-        }
+        portfolio_data = {"code": 200, "message": "Success", "data": {
+        "portfolio": portfolio_entries,
+        "available_cash": cash,
+        "total_invested_amount": total_invested_amount,
+        "starting_amt": 10000.0,
+        "username": username
+    }}
         response = portfolio_data
 
     return (response, code)

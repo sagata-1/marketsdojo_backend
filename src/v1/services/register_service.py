@@ -32,11 +32,11 @@ def register_user(username: str, email: str, password: str) -> (dict, int):
     code = 200
     if not username or not email or not password:
         code = 400
-        response = {"error": "Missing required fields"}
+        response = jsonify({"code": 400, "message": "Missing required fields", "data": {}})
         
     elif User.query.filter((User.username == username) | (User.email == email)).first():
         code = 400
-        response = jsonify({"error": "Username or email already exists"})
+        response = jsonify({"code": 400, "message": "Username or email already exists", "data": {}})
 
     else:
         new_user = User(username=username, email=email, hash=generate_password_hash(password))
@@ -47,7 +47,7 @@ def register_user(username: str, email: str, password: str) -> (dict, int):
         except IntegrityError:
             db.session.rollback()
             code = 500
-            response = jsonify({"error": "Database error occurred"})
+            response = jsonify({"code": 500, "message": "Database error occurred", "data": {}})
 
         access_token = create_token(new_user.id, new_user.username)
 
@@ -59,10 +59,10 @@ def register_user(username: str, email: str, password: str) -> (dict, int):
         except IntegrityError:
             db.session.rollback()
             code = 500
-            response = jsonify({"error": "Database error occurred"})
+            response = jsonify({"code": 500, "message": "Database error occurred", "data": {}})
             
     if code == 200:
-        response = jsonify({"username": username, "user_id": new_user.id, "email": email, "access_token": access_token})
+        response = jsonify({"code": 200, "message": "Success", "data": {"username": username, "user_id": new_user.id, "email": email, "access_token": access_token}})
             
 
     return make_response(response, code)
