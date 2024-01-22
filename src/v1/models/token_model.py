@@ -1,5 +1,6 @@
 # token_model.py
-from utils.database import db 
+from utils.database import db
+ 
 class TokenModel(db.Model):
     __tablename__ = 'tokens_userid'
 

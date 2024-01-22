@@ -2,6 +2,7 @@ import datetime
 import requests
 import uuid
 import pytz
+
 def lookup(symbol, type):
     # Prepare API request
     symbol = symbol.upper()
