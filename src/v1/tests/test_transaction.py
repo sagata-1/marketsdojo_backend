@@ -10,7 +10,7 @@ import pytz
 app = Flask(__name__)
 encoded_password = quote_plus("Saucepan03@!")
 
-app.config['SQLALCHEMY_DATABASE_URI']= f"postgresql://postgres:{encoded_password}@db.krvuffjhmqiyerbpgqtv.supabase.co:5432/postgres"
+app.config['SQLALCHEMY_DATABASE_URI']= f"postgresql://postgres.krvuffjhmqiyerbpgqtv:{encoded_password}@aws-0-ap-south-1.pooler.supabase.com:6543/postgres"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
