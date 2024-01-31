@@ -19,7 +19,7 @@ for blueprint in blueprints:
 
 #use different URIs for different environments so we can add/remove columns/tables without breaking production code
 #see pramods structure of having a config folder with test, dev and prod db
-app.config['SQLALCHEMY_DATABASE_URI']= f"postgresql://postgres:{encoded_password}@db.krvuffjhmqiyerbpgqtv.supabase.co:5432/postgres"
+app.config['SQLALCHEMY_DATABASE_URI']= f"postgresql://postgres.krvuffjhmqiyerbpgqtv:{encoded_password}@aws-0-ap-south-1.pooler.supabase.com:6543/postgres"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
 # Import models after creating 'db'
