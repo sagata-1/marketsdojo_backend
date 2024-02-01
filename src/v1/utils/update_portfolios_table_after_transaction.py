@@ -61,6 +61,7 @@ def update_portfolios_table_after_transaction(data, user, asset):
         else:
             try:
                 asset_exists.quantity -= num_shares
+                asset_exists.invested_amount = calculate_portfolio_invested_amount(symbol, user_id)
                 db.session.commit()
             except Exception as e:
                 db.session.rollback()
