@@ -12,7 +12,7 @@ def login_user(email, password):
     password (str): The password of the user.
 
     Output:
-    response: A dictionary containing user info and token if authentication is successful, 
+    response: A dictionary containing user info and token if authentication is successful,
           or an error message if not.
     """
     if not email:
@@ -20,13 +20,13 @@ def login_user(email, password):
 
     elif not password:
         response = {"code": 403, "message": "Did not enter a password", "data": {}}
-    
+
     else:
         # Query user by email
         user = User.query.filter_by(email=email).first()
 
         # Check user exists and password is correct
-        if not user or not check_password_hash(user.hash, password):
+        if not user or not check_password_hash(user.password_hash, password):
             response = {"code": 403, "message": "Incorrect email and/or password", "data": {}}
 
         # Query access token

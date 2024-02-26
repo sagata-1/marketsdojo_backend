@@ -10,6 +10,7 @@ from utils.jwt import jwt
 app=Flask(__name__)
 CORS(app)
 encoded_password = quote_plus("Saucepan03@!")
+encoded_password = quote_plus("gWd2fjODUxYvr9zL")
 #register blueprints
 for blueprint in blueprints:
     app.register_blueprint(blueprint, url_prefix='/')
@@ -19,7 +20,8 @@ for blueprint in blueprints:
 
 #use different URIs for different environments so we can add/remove columns/tables without breaking production code
 #see pramods structure of having a config folder with test, dev and prod db
-app.config['SQLALCHEMY_DATABASE_URI']= f"postgresql://postgres.krvuffjhmqiyerbpgqtv:{encoded_password}@aws-0-ap-south-1.pooler.supabase.com:6543/postgres"
+#app.config['SQLALCHEMY_DATABASE_URI']= f"postgresql://postgres.krvuffjhmqiyerbpgqtv:{encoded_password}@aws-0-ap-south-1.pooler.supabase.com:6543/postgres"
+app.config['SQLALCHEMY_DATABASE_URI']= f"postgresql://postgres.ejinafkbyepfnqtgwstk:{encoded_password}@aws-0-ap-south-1.pooler.supabase.com:5432/postgres"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
 # Import models after creating 'db'
@@ -32,3 +34,7 @@ jwt.init_app(app)
 with app.app_context():
     for rule in app.url_map.iter_rules():
         print(f"{rule} -> {rule.endpoint}")
+
+
+if __name__ == "__main__":
+    app.run(debug=True, host="0.0.0.0")
