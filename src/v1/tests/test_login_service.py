@@ -24,11 +24,11 @@ class User(db.Model):
     email = db.Column(db.String, unique=True, nullable=False)
     username = db.Column(db.String, nullable=False)
     hash = db.Column(db.String, nullable=False)
-    cash = db.Column(db.Float, nullable=False, default=10000.0) 
+    cash = db.Column(db.Float, nullable=False, default=10000.0)
     bought = db.Column(db.BigInteger, nullable=False, default=0)
     sold = db.Column(db.BigInteger, nullable=False, default=0)
-    timestamp = db.Column(db.DateTime(timezone=True)) 
-        
+    timestamp = db.Column(db.DateTime(timezone=True))
+
 def login_user(email, password):
     """
     Authenticate a user.
@@ -38,7 +38,7 @@ def login_user(email, password):
     password (str): The password of the user.
 
     Output:
-    response: A dictionary containing user info and token if authentication is successful, 
+    response: A dictionary containing user info and token if authentication is successful,
           or an error message if not.
     """
     if not email:
@@ -46,13 +46,13 @@ def login_user(email, password):
 
     elif not password:
         response = {"code": 403, "message": "Did not enter a password", "data": {}}
-    
+
     else:
         # Query user by email
         user = User.query.filter_by(email=email).first()
 
         # Check user exists and password is correct
-        if not user or not check_password_hash(user.hash, password):
+        if not user or not check_password_hash(user.password_hash, password):
             response = {"code": 403, "message": "Incorrect email and/or password", "data": {}}
 
         # Query access token
@@ -76,7 +76,7 @@ def login_api(data):
     Outputs:
     Flask Response: JSON response containing user info and token, or an error message.
     """
-    
+
     email = data.get("email")
     password = data.get("password")
     response = login_user(email, password)

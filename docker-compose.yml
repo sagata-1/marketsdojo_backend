@@ -7,3 +7,6 @@ services:
       - .:/usr/app
     ports:
       - "5000:5000"
+    environment:
+      - FLASK_ENV=development
+      - PYTHONDONTWRITEBYTECODE=1
