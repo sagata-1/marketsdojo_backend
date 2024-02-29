@@ -33,7 +33,6 @@ def get_sub_lesson(course_id, lesson_id, sub_lesson_id):
 
     sub_lesson_data = {"code": 200, "message": "Success", "data": serialized_sub_lesson}
     response = jsonify(sub_lesson_data)
-
     return make_response(response, code)
 
 
