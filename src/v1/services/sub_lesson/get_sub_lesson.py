@@ -1,4 +1,4 @@
-# course_service.py
+# sub_lesson_service.py
 from utils.get_user_from_token import get_user_from_token
 from models.learning_unit_model import LearningUnitModel
 from flask import jsonify, make_response
@@ -29,11 +29,10 @@ def get_sub_lesson(course_id, lesson_id, sub_lesson_id):
         if lesson and lesson.parent_id:
             course = LearningUnitModel.query.filter_by(id=course_id, parent_id=None).first()
             if course:
-                serialized_sub_lesson = {"id": sub_lesson.id,"content": sub_lesson.content,"title": sub_lesson.title,"course": course.title ,"lesson": lesson.title }
+                serialized_sub_lesson = {"sub_lesson_id": sub_lesson.id,"content": sub_lesson.content,"sub_lesson_name": sub_lesson.title,"course": course.title ,"lesson": lesson.title }
 
     sub_lesson_data = {"code": 200, "message": "Success", "data": serialized_sub_lesson}
     response = jsonify(sub_lesson_data)
-
     return make_response(response, code)
 
 
