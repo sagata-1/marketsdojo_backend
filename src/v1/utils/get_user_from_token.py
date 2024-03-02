@@ -1,5 +1,5 @@
 from models.token_model import TokenModel
-from models.user_model import User
+from models.user_model import UserModel
 
 def get_user_from_token(access_token):
     """
@@ -9,4 +9,4 @@ def get_user_from_token(access_token):
         :return: User instance if a user is found with the given token, otherwise None.
         :rtype: dict
     """
-    return User.query.filter_by(id=TokenModel.query.filter_by(tokens=access_token).first().id).first()
+    return UserModel.query.filter_by(id=TokenModel.query.filter_by(tokens=access_token).first().id).first()

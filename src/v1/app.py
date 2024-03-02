@@ -25,7 +25,7 @@ app.config['SQLALCHEMY_DATABASE_URI']= f"postgresql://postgres.ejinafkbyepfnqtgw
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
 # Import models after creating 'db'
-from models.user_model import User
+from models.user_model import UserModel
 # Configure app JWT secret key for token generation
 app.config['JWT_SECRET_KEY'] = 'RANDOM_KEY_THAT_IS_SECRET'
 jwt.init_app(app)

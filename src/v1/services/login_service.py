@@ -1,6 +1,6 @@
 # login_service.py
 from werkzeug.security import check_password_hash
-from models.user_model import User
+from models.user_model import UserModel
 from models.token_model import TokenModel
 
 def login_user(email, password):
@@ -23,7 +23,7 @@ def login_user(email, password):
 
     else:
         # Query user by email
-        user = User.query.filter_by(email=email).first()
+        user = UserModel.query.filter_by(email=email).first()
 
         # Check user exists and password is correct
         if not user or not check_password_hash(user.password_hash, password):

@@ -1,6 +1,6 @@
 # services/register_service.py
 from werkzeug.security import generate_password_hash
-from models.user_model import User, db
+from models.user_model import UserModel, db
 from models.token_model import TokenModel
 from utils.create_token import create_token  # Replace with the actual import
 from sqlalchemy.exc import IntegrityError
@@ -34,12 +34,12 @@ def register_user(username: str, email: str, password: str) -> (dict, int):
         code = 400
         response = jsonify({"code": 400, "message": "Missing required fields", "data": {}})
         
-    elif User.query.filter((User.username == username) | (User.email == email)).first():
+    elif UserModel.query.filter((UserModel.username == username) | (UserModel.email == email)).first():
         code = 400
         response = jsonify({"code": 400, "message": "Username or email already exists", "data": {}})
 
     else:
-        new_user = User(username=username, email=email, hash=generate_password_hash(password))
+        new_user = UserModel(username=username, email=email, hash=generate_password_hash(password))
         db.session.add(new_user)
 
         try:
