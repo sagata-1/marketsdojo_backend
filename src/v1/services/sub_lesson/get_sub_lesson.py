@@ -1,4 +1,4 @@
-# course_service.py
+# sub_lesson_service.py
 from utils.get_user_from_token import get_user_from_token
 from models.learning_unit_model import LearningUnitModel
 from flask import jsonify, make_response
